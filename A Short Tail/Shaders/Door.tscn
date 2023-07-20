@@ -1,0 +1,52 @@
+[gd_scene load_steps=5 format=2]
+
+[sub_resource type="CubeMesh" id=1]
+
+[sub_resource type="BoxShape" id=2]
+extents = Vector3( 0.982975, 0.99794, 1 )
+
+[sub_resource type="Animation" id=3]
+resource_name = "Open"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("MeshInstance:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( -0.0380607, 0.496101, -0.0154564 ), Vector3( -0.0380607, 1.90506, -0.0154564 ), Vector3( -0.0380607, 4.42679, -0.0154564 ) ]
+}
+
+[sub_resource type="Animation" id=4]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("MeshInstance:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( -0.0380607, 0.496101, -0.0154564 ) ]
+}
+
+[node name="Door" type="StaticBody"]
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+transform = Transform( 1.13075, 0, 0, 0, 1.94088, 0, 0, 0, 0.125668, -0.0380607, 0.496101, -0.0154564 )
+mesh = SubResource( 1 )
+material/0 = null
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( 1.131, 0, 0, 0, 1.941, 0, 0, 0, 0.126, -0.0324792, 0.505105, 0 )
+shape = SubResource( 2 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Open = SubResource( 3 )
+anims/RESET = SubResource( 4 )

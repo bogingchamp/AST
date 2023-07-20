@@ -1,0 +1,146 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://Actor_scripts/Enemy.gd" type="Script" id=1]
+[ext_resource path="res://ArtWork/attack indication.png" type="Texture" id=2]
+[ext_resource path="res://Shaders/CellShader.tres" type="Material" id=3]
+
+[sub_resource type="Animation" id=1]
+resource_name = "bow"
+length = 0.7
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite3D2:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3, 4, 5, 7 ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "rod"
+length = 0.7
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite3D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3, 4, 5, 8 ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "sword"
+length = 0.7
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite3D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3, 4, 5, 6 ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "wand"
+length = 0.7
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite3D4:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3, 4, 5, 9 ]
+}
+
+[sub_resource type="SphereMesh" id=5]
+
+[sub_resource type="SphereShape" id=6]
+
+[sub_resource type="CubeMesh" id=7]
+
+[node name="Enemy" type="KinematicBody"]
+script = ExtResource( 1 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/bow = SubResource( 1 )
+anims/rod = SubResource( 2 )
+anims/sword = SubResource( 3 )
+anims/wand = SubResource( 4 )
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.0158213, -0.0315754, 9.98974e-05 )
+mesh = SubResource( 5 )
+material/0 = ExtResource( 3 )
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform( 8.15581, 0, 0, 0, 7.74904, 0, 0, 0, -2.04018, -0.151678, 3.14583, 0.0346508 )
+visible = false
+texture = ExtResource( 2 )
+hframes = 3
+vframes = 4
+frame = 6
+
+[node name="Sprite3D2" type="Sprite3D" parent="."]
+transform = Transform( 14.374, 0, 0, 0, 11.8964, 0, 0, 0, -1.48385, 0, 3.15387, 0 )
+visible = false
+texture = ExtResource( 2 )
+hframes = 3
+vframes = 4
+
+[node name="Sprite3D3" type="Sprite3D" parent="."]
+transform = Transform( 15.5321, 0, 0, 0, 13.6904, 0, 0, 0, -1.48385, 0, 3.12828, 0 )
+visible = false
+texture = ExtResource( 2 )
+hframes = 3
+vframes = 4
+frame = 8
+
+[node name="Sprite3D4" type="Sprite3D" parent="."]
+transform = Transform( 16.7809, 0, 0, 0, 14.2754, 0, 0, 0, -1.48385, 0, 3.13853, 0 )
+visible = false
+texture = ExtResource( 2 )
+hframes = 3
+vframes = 4
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
+shape = SubResource( 6 )
+
+[node name="FOV" type="Area" parent="."]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0 )
+
+[node name="CollisionPolygon" type="CollisionPolygon" parent="FOV"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 1.1, 0, 0 )
+polygon = PoolVector2Array( 0, 0, 15, 6, 15, -6 )
+
+[node name="MeshInstance2" type="MeshInstance" parent="."]
+transform = Transform( 0.226823, 0, 0, 0, 0.203798, 0, 0, 0, 1, 0, 0, -1.25651 )
+mesh = SubResource( 7 )
+material/0 = null
+
+[node name="Area" type="Area" parent="."]
+
+[node name="CollisionPolygon" type="CollisionPolygon" parent="Area"]
+transform = Transform( -4.37114e-08, -1, -4.37114e-08, 0, -4.37114e-08, 1, -1, 4.37114e-08, 1.91069e-15, -0.0425071, 0, -1.13638 )
+polygon = PoolVector2Array( 0, 0, 15, 6, 15, -6 )
+
+[connection signal="body_entered" from="FOV" to="." method="_on_FOV_body_entered"]
+[connection signal="body_exited" from="FOV" to="." method="_on_FOV_body_exited"]
+[connection signal="body_entered" from="Area" to="." method="_on_Area_body_entered"]
+[connection signal="body_exited" from="Area" to="." method="_on_Area_body_exited"]

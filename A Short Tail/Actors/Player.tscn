@@ -1,0 +1,73 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Actor_scripts/Player_main.gd" type="Script" id=1]
+[ext_resource path="res://ArtWork/Paul-le1V.ttf" type="DynamicFontData" id=3]
+
+[sub_resource type="CapsuleMesh" id=1]
+
+[sub_resource type="CubeMesh" id=2]
+
+[sub_resource type="SpatialMaterial" id=3]
+albedo_color = Color( 1, 0, 0, 1 )
+
+[sub_resource type="CapsuleShape" id=4]
+
+[sub_resource type="BoxShape" id=5]
+extents = Vector3( 1, 0.295324, 1 )
+
+[sub_resource type="DynamicFont" id=6]
+size = 100
+outline_size = 4
+outline_color = Color( 0, 0, 0, 1 )
+use_filter = true
+font_data = ExtResource( 3 )
+
+[node name="Player" type="KinematicBody" groups=[
+"player",
+]]
+script = ExtResource( 1 )
+speed = 11.0
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
+mesh = SubResource( 1 )
+material/0 = null
+
+[node name="MeshInstance1" type="MeshInstance" parent="MeshInstance"]
+transform = Transform( 0.16401, 0, 0, 0, 0.484969, -1.38057e-08, 0, -1.38057e-08, 0.169131, 0, 1.33688, -0.384923 )
+mesh = SubResource( 2 )
+material/0 = SubResource( 3 )
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
+shape = SubResource( 4 )
+
+[node name="SpringArm" type="SpringArm" parent="." groups=[
+"player",
+]]
+spring_length = 9.0
+margin = 0.5
+
+[node name="Camera" type="Camera" parent="SpringArm"]
+
+[node name="RayCast" type="RayCast" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00371599, -1.62874, 0.00211406 )
+enabled = true
+
+[node name="Area" type="Area" parent="."]
+
+[node name="CollisionShape" type="CollisionShape" parent="Area"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.49003, 0 )
+shape = SubResource( 5 )
+
+[node name="Label" type="Label" parent="."]
+margin_left = 71.0
+margin_top = 19.0
+margin_right = 114.0
+margin_bottom = 125.0
+custom_fonts/font = SubResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="body_entered" from="Area" to="." method="_on_Area_body_entered"]
